@@ -168,7 +168,7 @@ async def admin_reply_button(update: Update, context: ContextTypes.DEFAULT_TYPE)
 
     await query.message.reply_text(
         f"✏️ İndi yazacağınız mesaj `{user_id}` ID-li istifadəçiyə göndəriləcək.\n\n"
-        f"Ləğv etmək üçün /ləğv yazın.",
+        f"Ləğv etmək üçün /legv yazın.",
         parse_mode="Markdown"
     )
 
@@ -230,7 +230,7 @@ def main():
 
     app.add_handler(conv_handler)
     app.add_handler(CallbackQueryHandler(admin_reply_button, pattern=r"^reply_\d+$"))
-    app.add_handler(CommandHandler("ləğv", admin_cancel))
+    app.add_handler(CommandHandler("legv", admin_cancel))
 
     # Admin mesajlarını tut (ConversationHandler-dən kənar)
     app.add_handler(MessageHandler(
