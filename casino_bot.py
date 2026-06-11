@@ -99,7 +99,7 @@ async def withdraw_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
 async def voucher_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user = update.effective_user
-    text = update.message.text
+    text = update.message.text or update.message.caption or "📎 [Fayl/Şəkil göndərdi]"
 
     keyboard = InlineKeyboardMarkup([[
         InlineKeyboardButton("💬 Bu istifadəçiyə cavab ver", callback_data=f"reply_{user.id}")
@@ -213,14 +213,16 @@ def main():
                 MessageHandler(filters.Regex("^💸 Pulumu çıxartmaq istəyirəm$"), withdraw_start),
                 MessageHandler(filters.TEXT & ~filters.COMMAND, unknown_in_menu),
             ],
-            VOUCHER_CHAT: [
-                CommandHandler("menu", menu),
-                MessageHandler(filters.TEXT & ~filters.COMMAND, voucher_message),
-            ],
-            WITHDRAW_CHAT: [
-                CommandHandler("menu", menu),
-                MessageHandler(filters.TEXT & ~filters.COMMAND, withdraw_message),
-            ],
+           VOUCHER_CHAT: [
+    CommandHandler("menu", menu),
+    MessageHandler(filters.TEXT & ~filters.COMMAND, voucher_message),
+    MessageHandler(filters.PHOTO | filters.Document.ALL | filters.VIDEO | filters.AUDIO, voucher_message),
+],
+WITHDRAW_CHAT: [
+    CommandHandler("menu", menu),
+    MessageHandler(filters.TEXT & ~filters.COMMAND, withdraw_message),
+    MessageHandler(filters.PHOTO | filters.Document.ALL | filters.VIDEO | filters.AUDIO, withdraw_message),
+],
         },
         fallbacks=[
             CommandHandler("start", start),
