@@ -67,7 +67,7 @@ async def voucher_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     user = update.effective_user
 
     await update.message.reply_text(
-        "🎟 *Voucher (Kod) alışı*\n\n"
+        "🎟 *KOD alışı*\n\n"
         "Almaq istədiyiniz kod məbləğini və ya sualınızı yazın.\n"
         "Operator tezliklə sizinlə əlaqə saxlayacaq.",
         parse_mode="Markdown",
